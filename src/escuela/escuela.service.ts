@@ -18,12 +18,12 @@ export class EscuelaService {
       if(escuela)
           return true;
       else
-      throw new Error('No se puede crear la escuela');
+        throw new Error('No se puede crear la escuela');
     }
     catch(error){
       throw new HttpException({
           status: HttpStatus.NOT_FOUND,
-          error: 'Error en Ciudad: ' + error
+          error: 'Error en Escuela: ' + error
       },HttpStatus.NOT_FOUND)
     }
   }
@@ -31,7 +31,8 @@ export class EscuelaService {
   async findAll() : Promise<EscuelaDto[]> {
     try{
         return await this.escuelaRepository.find();
-    }catch(error){
+    }
+    catch(error){
       throw new HttpException({
         status: HttpStatus.CONFLICT,
         error: 'No se pueden obtener las escuelas: ' + error

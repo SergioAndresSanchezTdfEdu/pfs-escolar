@@ -8,6 +8,10 @@ export class CiudadController {
 
     constructor(private readonly ciudadService: CiudadService) {}
 
+    @Post('crear')
+    async crearCiudad(@Body() ciudadDTO: CiudadDTO): Promise<boolean> {
+        return await this.ciudadService.crearCiudad(ciudadDTO);
+    }
     @Get('raw')
     async getAllRaw(): Promise<CiudadDTO[]> {
         return await this.ciudadService.findAllRaw();
@@ -23,11 +27,6 @@ export class CiudadController {
         return await this.ciudadService.findById(id);
     }
 
-    @Post('crear')
-    async crearCiudad(@Body() ciudadDTO: CiudadDTO): Promise<boolean> {
-        return await this.ciudadService.crearCiudad(ciudadDTO);
-    }
-    
     @Put('actualizar/:id')
     async actualizarCiudadId(@Body() ciudadDTO: CiudadDTO, @Param('id')id:number): Promise<String> {
         return await this.ciudadService.actualizarCiudadId(ciudadDTO,id);

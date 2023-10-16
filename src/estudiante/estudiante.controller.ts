@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { EstudianteService } from './estudiante.service';
-import { CreateEstudianteDto } from './dto/create-estudiante.dto';
-import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
+import { EstudianteDto } from './dto/estudiante.dto';
 
 @Controller('estudiante')
 export class EstudianteController {
+
   constructor(private readonly estudianteService: EstudianteService) {}
 
-  @Post()
-  create(@Body() createEstudianteDto: CreateEstudianteDto) {
-    return this.estudianteService.create(createEstudianteDto);
+  @Post('crear')
+  async create(@Body() estudianteDto: EstudianteDto) : Promise<boolean>{
+    return await this.estudianteService.create(estudianteDto);
   }
 
-  @Get()
-  findAll() {
-    return this.estudianteService.findAll();
+  @Get('orm')
+  async findAll() : Promise<EstudianteDto[]> {
+    return await this.estudianteService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estudianteService.findOne(+id);
+  async findOne(@Param('id') id: number) : Promise<EstudianteDto>{
+    return await this.estudianteService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstudianteDto: UpdateEstudianteDto) {
-    return this.estudianteService.update(+id, updateEstudianteDto);
+  @Put('actualizar/:id')
+  async update(@Param('id') id: number, @Body() estudianteDto: EstudianteDto) : Promise<String>{
+    return this.estudianteService.update(id, estudianteDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estudianteService.remove(+id);
+  @Delete('eliminar/:id')
+  async remove(@Param('id') id: number) : Promise<any> {
+    return await this.estudianteService.remove(id);
   }
 }

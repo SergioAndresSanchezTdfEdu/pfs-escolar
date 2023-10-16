@@ -3,7 +3,6 @@ import { EscuelaService } from './escuela.service';
 import { EscuelaController } from './escuela.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Escuela } from './entities/escuela.entity';
-import { EscuelaDto } from './dto/escuela.dto';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Escuela])],
