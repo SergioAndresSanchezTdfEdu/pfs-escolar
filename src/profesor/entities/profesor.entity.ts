@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IsNotEmpty, IsString } from "class-validator"; // npm i class-validator
+import { Clase } from "src/clase/entities/clase.entity";
+import { Ciudad } from "src/ciudad/entities/ciudad.entity";
+import { CiudadProfesor } from "src/ciudad/entities/ciudad_profesor.entity";
 
 @Entity({name:'profesor'})
 export class Profesor {
@@ -15,6 +18,15 @@ export class Profesor {
     @IsString()
     @IsNotEmpty()
     apellido:string;
+
+    @OneToMany(()=>Clase,clases=>clases.profesor)
+    public clases:Clase[];
+
+    @OneToMany(()=>Ciudad, ciudad=>ciudad.direcciones)
+    public ciudad:Ciudad[];
+
+    @OneToMany(()=>CiudadProfesor,direcciones=>direcciones.profesor)
+    direcciones:CiudadProfesor[];
 
     constructor(nombre:string,apellido:string) {
         this.nombre = nombre;
