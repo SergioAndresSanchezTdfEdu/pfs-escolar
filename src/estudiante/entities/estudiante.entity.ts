@@ -1,7 +1,8 @@
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { CiudadEstudiante } from "src/ciudad/entities/ciudad_estudiante.entity";
+import { ClaseEstudiante } from "src/clase/entities/clase-estudiante.entity";
 import { Clase } from "src/clase/entities/clase.entity";
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'estudiante'})
 export class Estudiante {
@@ -19,8 +20,10 @@ export class Estudiante {
     @Column({ type: 'date' })
     fecha_nacimiento: string;
 
-    @ManyToMany(()=>Clase,clases=>clases.estudiantes)
-    public clases:Clase[];
+    //@ManyToMany(()=>Clase,clases=>clases.estudiantes)
+    //public clases:Clase[];
+    @OneToMany(()=>ClaseEstudiante,claseEstudiante=>claseEstudiante.estudiante)
+    claseEstudiante:ClaseEstudiante[];
 
     @OneToMany(()=>CiudadEstudiante,direccionesE=>direccionesE.estudiante)
     direccionesE:CiudadEstudiante[];

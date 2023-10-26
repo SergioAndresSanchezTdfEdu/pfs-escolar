@@ -4,8 +4,13 @@ import { ProfesorDto } from './dto/profesor.dto';
 
 @Controller('profesor')
 export class ProfesorController {
+  
   constructor(private readonly profesorService: ProfesorService) {}
 
+  @Post('crearDomicilio')
+  async createDomicilio(@Body() body:any) : Promise<any>{
+    return await this.profesorService.createDomicilio(body);
+  }
   @Post('crear')
   async create(@Body() profesorDto: ProfesorDto) : Promise<boolean>{
     return await this.profesorService.create(profesorDto);

@@ -2,7 +2,8 @@ import { IsNotEmpty} from "class-validator";
 import { Escuela } from "src/escuela/entities/escuela.entity";
 import { Estudiante } from "src/estudiante/entities/estudiante.entity";
 import { Profesor } from "src/profesor/entities/profesor.entity";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ClaseEstudiante } from "./clase-estudiante.entity";
 
 @Entity({name:'clase'})
 export class Clase {
@@ -23,9 +24,12 @@ export class Clase {
     @JoinColumn({name:"fk_id_escuela"})
     public escuela:Escuela;
 
-    @ManyToMany(()=>Estudiante,estudiantes=>estudiantes.clases)
-    @JoinTable({name:"clase_estudiante"})
-    public estudiantes:Estudiante[];
+    //@ManyToMany(()=>Estudiante,estudiantes=>estudiantes.clases)
+    //@JoinTable({name:"clase_estudiante"})
+    //public estudiantes:Estudiante[];
+
+    @OneToMany(()=>ClaseEstudiante,claseEstudiante=>claseEstudiante.clase)
+    claseEstudiante:ClaseEstudiante[];
 
     //Constructor
     constructor(nombre:string) {

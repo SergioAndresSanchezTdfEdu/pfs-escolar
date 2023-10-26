@@ -1,12 +1,22 @@
 import { Profesor } from "src/profesor/entities/profesor.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Ciudad } from "./ciudad.entity";
 
 @Entity({name: 'ciudad_profesor'})
 export class CiudadProfesor{
-    @PrimaryGeneratedColumn()
-    id: number;
 
+    constructor(ciudadId:number, profesorId:number, direccion:string){
+        this.ciudadId = ciudadId;
+        this.profesorId = profesorId;
+        this.direccion = direccion;
+    }
+    
+    @PrimaryColumn()
+    ciudadId: number;
+
+    @PrimaryColumn()
+    profesorId: number;
+    
     @Column()
     direccion: string;
 
@@ -17,10 +27,6 @@ export class CiudadProfesor{
     public ciudad:Ciudad;
 
     //GET
-    public getId():number{
-        return this.id;
-    }
- 
     public getDireccion():string{
         return this.direccion;
     }

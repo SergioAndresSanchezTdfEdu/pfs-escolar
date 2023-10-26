@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { EstudianteService } from './estudiante.service';
 import { EstudianteDto } from './dto/estudiante.dto';
+import { Estudiante } from './entities/estudiante.entity';
 
 @Controller('estudiante')
 export class EstudianteController {
@@ -12,13 +13,18 @@ export class EstudianteController {
     return await this.estudianteService.create(estudianteDto);
   }
 
+  @Post('agregar-clase')
+  async addClase(@Body() body:any) : Promise<any>{
+    return await this.estudianteService.addClase(body);
+  }
+
   @Get('orm')
-  async findAll() : Promise<EstudianteDto[]> {
+  async findAll() : Promise<Estudiante[]> {
     return await this.estudianteService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) : Promise<EstudianteDto>{
+  async findOne(@Param('id') id: number) : Promise<Estudiante>{
     return await this.estudianteService.findOne(id);
   }
 
